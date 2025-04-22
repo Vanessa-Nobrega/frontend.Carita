@@ -1,0 +1,44 @@
+.faixaCA{
+  background-color: var( --cor-primaria) ;
+  color: var(--cor-textoPrimaria);
+  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.348);
+}
+
+.textoinicial{
+  margin: 20px 40px;
+  text-align: justify;
+  color: var(--cor-textoPrimaria);
+    justify-content: space-around;
+
+}
+
+.container{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  flex-wrap: wrap-reverse;
+  margin-bottom: 20px;
+}
+
+.endereços{
+  background-color: var( --cor-primaria);
+  color: var(--cor-textoPrimaria);
+  padding: 10px 40px;
+  border-radius: 20px;
+  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.348);
+  width: 400px;
+  flex-wrap: wrap;
+}
+
+.maps{
+  
+  border-radius: 20px;
+  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.348);
+  width: 400px;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+
+
