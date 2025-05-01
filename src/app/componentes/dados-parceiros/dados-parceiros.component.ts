@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 export class DadosParceirosComponent {
   formParceiros: FormGroup;
   showAlert = false;
+  tipoParceiro: string = 'option1'; // 'option1' é o padrão (Parceiro Captador)
 
   constructor(private fb: FormBuilder){
     this.formParceiros = this.fb.group({
@@ -44,4 +45,7 @@ export class DadosParceirosComponent {
     }
   }
 
+  onTipoParceiroChange(tipo: string) {
+    this.tipoParceiro = tipo;
+  }
 }
