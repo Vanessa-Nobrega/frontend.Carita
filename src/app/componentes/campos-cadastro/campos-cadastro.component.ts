@@ -25,7 +25,7 @@ export class CamposCadastroComponent {
     console.log(">> ", this.myForm.valid);
     if(this.myForm.valid){
       console.log(this.myForm.value)
-      this.router.navigate(['/pagina-preCadastro'])
+      this.router.navigate(['/pagina-login'])
   
   
     
