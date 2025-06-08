@@ -20,14 +20,14 @@
   margin-bottom: 20px;
 }
 
-.endereços{
-  background-color: var( --cor-primaria);
-  color: var(--cor-textoPrimaria);
-  padding: 10px 40px;
-  border-radius: 20px;
-  box-shadow: 1px 5px 8px rgba(0, 0, 0, 0.348);
-  width: 400px;
-  flex-wrap: wrap;
+.cards-enderecos{
+border: 1px solid rgb(180, 180, 180);
+}
+
+.pontos-arrecadacao{
+box-shadow: 5px 8px 8px #3838384d;
+border: 1px solid rgb(173, 173, 173);
+width: 500px;
 }
 
 .maps{
