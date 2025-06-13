@@ -1,4 +1,4 @@
-<div class="container-fluid main-content">
+<div tabindex="0" class="container-fluid main-content">
   <div class="page-container">
     <div class="sidebar">
       <div class="sidebar-content">
@@ -24,7 +24,7 @@
               >Dados Parceiros Representante</a
             >
           </li>
-         
+
           <li class="nav-item">
             <a routerLink="/pagina-desativarParceiro" class="nav-link"
               >Desativar</a
@@ -43,7 +43,7 @@
 
       <h5 class="m-2">Selecione o tipo de parceiro que deseja ser:</h5>
       <p>
-        o <strong>Parceiro Captador</strong> cadastra um ponto de coleta de alimentos, que serão enviados para instituições de caridade ou ONGs cadastradas. 
+        o <strong>Parceiro Captador</strong> cadastra um ponto de coleta de alimentos, que serão enviados para instituições de caridade ou ONGs cadastradas.
       </p>
       <p>O <strong>Parceiro Divulgador</strong> apoia na divulgação da nossa ideia e valores, ajudando a ampliar nosso alcance.</p>
       <label for="tipoParceiro">Tipo de Parceiro: </label>
@@ -60,7 +60,7 @@
         />
         <label class="form-check-label" for="inlineRadio1">Parceiro Captador</label>
       </div>
-      
+
       <div class="form-check form-check-inline">
         <input
           class="form-check-input"
@@ -73,7 +73,7 @@
         />
         <label class="form-check-label" for="inlineRadio2">Parceiro Divulgador</label>
       </div>
-      
+
 
               <!--Input Nome-->
               <div class="row">
@@ -86,7 +86,7 @@
                     placeholder="Nome Completo"
                     formControlName="orgName"
                   />
-      
+
                   <!--Validação Nome-->
                   <div
                     *ngIf="
@@ -106,7 +106,7 @@
                   </div>
                 </div>
               </div>
-      
+
               <!--Input CNPJ-->
               <div class="row">
                 <div class="form-group col-6">
@@ -134,7 +134,7 @@
                     >
                   </div>
                 </div>
-      
+
                 <!--Input Telefone-->
                 <div class="form-group col-6">
                   <label for="telefone">Telefone</label>
@@ -145,7 +145,7 @@
                     placeholder="(00) 00000-0000"
                     formControlName="telefone"
                   />
-      
+
                   <!--Validação Telefone-->
                   <div
                     *ngIf="
@@ -165,7 +165,7 @@
                   </div>
                 </div>
               </div>
-      
+
               <!--Input Email-->
               <div class="row">
                 <div class="form-group col-12">
@@ -177,7 +177,7 @@
                     placeholder="exemplo@dominio.com"
                     formControlName="email"
                   />
-      
+
                   <!--Validação Email-->
                   <div
                     *ngIf="
@@ -236,7 +236,7 @@
               <small *ngIf="formParceiros.get('logradouro')?.errors?.['required']">O logradouro é obrigatório.</small>
             </div>
           </div>
-      
+
           <div class="form-group col-3">
             <label for="numero">Número</label>
             <input
@@ -250,7 +250,7 @@
             </div>
           </div>
         </div>
-      
+
         <div class="row">
           <div class="form-group col-4">
             <label for="bairro">Bairro</label>
@@ -265,7 +265,7 @@
               <small *ngIf="formParceiros.get('bairro')?.errors?.['required']">O bairro é obrigatório.</small>
             </div>
           </div>
-      
+
           <div class="form-group col-4">
             <label for="cidade">Cidade</label>
             <input
@@ -279,7 +279,7 @@
               <small *ngIf="formParceiros.get('cidade')?.errors?.['required']">A cidade é obrigatória.</small>
             </div>
           </div>
-      
+
           <div class="form-group col-4">
             <label for="estado">Estado</label>
             <input
@@ -294,7 +294,7 @@
             </div>
           </div>
         </div>
-      
+
         <div class="row">
           <div class="form-group col-6">
             <label for="cep">CEP</label>
@@ -309,7 +309,7 @@
               <small *ngIf="formParceiros.get('cep')?.errors?.['required']">O CEP é obrigatório.</small>
             </div>
           </div>
-      
+
           <div class="form-group col-6">
             <label for="horarioFuncionamento">Horário de Funcionamento</label>
             <input
@@ -325,10 +325,10 @@
           </div>
         </div>
       </div>
-        
-      
-             
-     
+
+
+
+
 
           <!--Input Anexo-->
         <!--Input Anexo Logo-->
@@ -366,7 +366,7 @@
           </div>
         </div>
 
-        
+
 
          <!--Botão Submit-->
 
@@ -386,6 +386,5 @@
         </div>
           </div>
 
-          
-        
-      
+
+

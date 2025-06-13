@@ -1,6 +1,6 @@
 <!-- Cartões (Noticias)-->
 <!-- Cartões com For para Seleção de dados-->
-<div class="card">
+<div tabindex="0" class="card">
   <div
     *ngFor="let Informacoesnoticias of categorias"
     class="row g-1 noticia"
@@ -20,7 +20,7 @@
         <p class="card-text">{{ Informacoesnoticias.description }}</p>
         <button class="botao-noticia">
           <a class="link" routerLink= "{{Informacoesnoticias.rotas}}">{{Informacoesnoticias.button}}</a>
-          
+
         </button>
       </div>
     </div>
