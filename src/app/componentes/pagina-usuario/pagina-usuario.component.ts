@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { HeaderComponent } from '../../header/header.component';
 import { DadosInstituicaoComponent } from '../dados-instituicao/dados-instituicao.component';
 import { DadosRepresentanteComponent } from '../dados-representante/dados-representante.component';
 import { DesativarContaComponent } from '../desativar-conta/desativar-conta.component';
 import { FooterComponent } from '../footer/footer.component';
+import { ApiService } from '../../api.service';
 
 @Component({
   selector: 'app-pagina-usuario',
@@ -13,5 +14,12 @@ import { FooterComponent } from '../footer/footer.component';
   styleUrl: './pagina-usuario.component.css'
 })
 export class PaginaUsuarioComponent {
-
+  private usuarioService = inject(ApiService);
+  public usuario$ = this.usuarioService.getDados();
+  constructor(){
+    this.usuario$.subscribe((usuario)=>{
+      console.log(usuario)
+    })
+  }
+  
 }

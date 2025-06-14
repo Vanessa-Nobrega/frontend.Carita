@@ -61,3 +61,20 @@ header{
   height: 30px;
   background-color: #f9c89ba4;
 }
+
+body.modo-preto-branco {
+  filter: grayscale(100%) !important;
+}
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+  box-shadow: 0 0 0 3px #f08f36 !important;
+  border-radius: 6px;
+}
+

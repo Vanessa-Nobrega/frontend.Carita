@@ -26,9 +26,8 @@ export class CamposCadastroComponent {
     if(this.myForm.valid){
       console.log(this.myForm.value)
       this.router.navigate(['/pagina-login'])
-  
-  
-    
+
+
     }
   }
 }

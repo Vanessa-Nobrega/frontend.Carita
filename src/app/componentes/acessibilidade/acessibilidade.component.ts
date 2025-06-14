@@ -1,82 +1,78 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { Renderer2 } from '@angular/core';
+import { Component, HostListener, AfterViewInit  } from '@angular/core';
 
 @Component({
   selector: 'app-acessibilidade',
-  standalone: true,
-  imports: [],
   templateUrl: './acessibilidade.component.html',
-  styleUrl: './acessibilidade.component.css'
+  styleUrls: ['./acessibilidade.component.css'],
+  standalone: true,
 })
-export class AcessibilidadeComponent implements OnInit {
+export class AcessibilidadeComponent implements AfterViewInit {
   estado = false;
-  fala!: SpeechSynthesisUtterance;
-  botaoFala!: HTMLButtonElement | null;
+  fala: SpeechSynthesisUtterance | null = null;
+  iconeLeitura: HTMLImageElement | null = null;
   focaveis: HTMLElement[] = [];
-  focoAtual = 0;
+  focoAtual: number = 0;
 
-  constructor(
-    private renderer: Renderer2,
-    @Inject(DOCUMENT) private document: Document
-  ) {}
+  ngAfterViewInit(): void {
+    this.iconeLeitura = document.getElementById('iconeLeitura') as HTMLImageElement;
 
-  ngOnInit(): void {
-    // Carrega o script VLibras
-    const vlibrasScript = this.renderer.createElement('script');
-    vlibrasScript.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
-    vlibrasScript.onload = () => {
-      new (window as any).VLibras.Widget('https://vlibras.gov.br/app');
-    };
-    this.renderer.appendChild(this.document.body, vlibrasScript);
-
-    // Botão leitura
-    this.botaoFala = this.document.querySelector("button.botao-flutuante");
-
-    // Navegação com setas
-    this.focaveis = Array.from(this.document.querySelectorAll('a, button, input, [tabindex="0"]')) as HTMLElement[];
+    this.focaveis = Array.from(
+      document.querySelectorAll('a, button, input, [tabindex="0"]')
+    ) as HTMLElement[];
+ this.loadVlibrasScript();
+    this.focarElemento(this.focoAtual);
 
     window.addEventListener('load', () => this.focarElemento(this.focoAtual));
-    this.document.addEventListener('keydown', (event) => this.escutarTeclado(event));
 
-    // Menu
-    const menu = this.document.getElementById('menu');
-    const navList = this.document.getElementById('nav-list');
-    if (menu && navList) {
-      menu.addEventListener('click', () => {
-        navList.classList.toggle('active');
-      });
-    }
+    document.addEventListener('keydown', (event) => this.navegacaoTeclado(event));
   }
 
-  alternarEstadoLeitura(): void {
+  alternarEstadoLeitura() {
     this.estado = !this.estado;
     this.estado ? this.lerPagina() : this.pararLeitura();
   }
 
-  lerPagina(): void {
-    const texto = this.document.body.innerText;
+  lerPagina() {
+    const texto = document.body.innerText;
     this.fala = new SpeechSynthesisUtterance(texto);
     this.fala.lang = 'pt-BR';
-    if (this.botaoFala) {
-      this.botaoFala.innerHTML = `<img src="../img/sem-som.png" alt="Iniciar Leitura" class="icone-botao">`;
+
+    if (this.iconeLeitura) {
+      this.iconeLeitura.src = '../img/sem-som.png';
+      this.iconeLeitura.alt = 'Parar Leitura';
     }
+
     speechSynthesis.speak(this.fala);
   }
 
-  pararLeitura(): void {
-    if (this.botaoFala) {
-      this.botaoFala.innerHTML = `<img src="../img/volume.png" alt="Parar Leitura" class="icone-botao">`;
+  pararLeitura() {
+    if (this.iconeLeitura) {
+      this.iconeLeitura.src = '../img/volume.png';
+      this.iconeLeitura.alt = 'Iniciar Leitura';
     }
+
     speechSynthesis.cancel();
   }
 
-  trocaCor(): void {
-    this.document.documentElement.classList.toggle("modo-preto-branco");
-  }
+ trocaCor() {
+   console.log('Botão Preto e Branco clicado!');
+  document.body.classList.toggle('modo-preto-branco');
+}
 
-  focarElemento(index: number): void {
-    if (!this.focaveis.length) return;
+loadVlibrasScript() {
+  const script = document.createElement('script');
+  script.src = 'https://vlibras.gov.br/app/vlibras-plugin.js';
+  script.onload = () => {
+    if (window && (window as any).VLibras) {
+      new (window as any).VLibras.Widget('vlibras-plugin'); // CORRETO AQUI
+    }
+  };
+  document.body.appendChild(script);
+}
+
+  focarElemento(index: number) {
+    if (this.focaveis.length === 0) return;
+
     this.focaveis.forEach((el, i) => {
       if (i === index) {
         el.focus();
@@ -88,8 +84,11 @@ export class AcessibilidadeComponent implements OnInit {
     });
   }
 
-  escutarTeclado(event: KeyboardEvent): void {
-    if (!this.focaveis.length) return;
+
+
+  navegacaoTeclado(event: KeyboardEvent) {
+    if (this.focaveis.length === 0) return;
+
     switch (event.key) {
       case 'ArrowDown':
         event.preventDefault();
@@ -97,29 +96,33 @@ export class AcessibilidadeComponent implements OnInit {
         this.focoAtual = (this.focoAtual + 1) % this.focaveis.length;
         this.focarElemento(this.focoAtual);
         break;
+
       case 'ArrowUp':
         event.preventDefault();
         window.scrollBy({ top: -100, behavior: 'smooth' });
         this.focoAtual = (this.focoAtual - 1 + this.focaveis.length) % this.focaveis.length;
         this.focarElemento(this.focoAtual);
         break;
+
       case 'ArrowRight':
         event.preventDefault();
         this.focoAtual = (this.focoAtual + 1) % this.focaveis.length;
         this.focarElemento(this.focoAtual);
         break;
+
       case 'ArrowLeft':
         event.preventDefault();
         this.focoAtual = (this.focoAtual - 1 + this.focaveis.length) % this.focaveis.length;
         this.focarElemento(this.focoAtual);
         break;
+
       case 'Enter':
         event.preventDefault();
         const el = this.focaveis[this.focoAtual];
         if (el.tagName === 'A') {
           window.location.href = (el as HTMLAnchorElement).href;
         } else {
-          el.click();
+          (el as HTMLElement).click();
         }
         break;
     }
