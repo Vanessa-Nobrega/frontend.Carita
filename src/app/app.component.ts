@@ -1,9 +1,9 @@
-import { Component, AfterViewInit} from '@angular/core';
+import { Component, AfterViewInit, Injectable } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./componentes/footer/footer.component";
-import{AcessibilidadeComponent} from"./componentes/acessibilidade/acessibilidade.component";
-
+import { AcessibilidadeComponent } from "./componentes/acessibilidade/acessibilidade.component";
+import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -16,10 +16,16 @@ export class AppComponent {
   title = 'CaritaII';
   focaveis: HTMLElement[] = [];
   focoAtual = 0;
+  pokemons: any;
+
+  constructor(private apiService: ApiService) {
+
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
       this.inicializarNavegacaoTeclado();
+      this.getPokemons();
     });
   }
 
@@ -75,4 +81,12 @@ export class AppComponent {
       }
     });
   }
+
+  getPokemons() {
+    this.apiService.getPokemons().subscribe((res) => {
+      console.log(res);
+      this.pokemons = res;
+    });
+  }
+
 }
