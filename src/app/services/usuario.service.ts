@@ -23,6 +23,6 @@ export class UsuarioService {
   }
 
   loginUsuario(payload:any): Observable<any>{
-  return this.http.post(`${this.http.post}/autenticacao`,payload)
+  return this.http.post(`${this.baseUrl}/autenticacao`,payload)
 }
 }
