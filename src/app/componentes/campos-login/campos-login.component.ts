@@ -29,11 +29,9 @@ onSubmit(){
     try{
       this.service.loginUsuario(this.myForm.value).subscribe()
     } catch (error){
-      
+      console.error(error)
     }
     this.router.navigate(['/pagina-preCadastro'])
-
-
   }
 
 //   <a
