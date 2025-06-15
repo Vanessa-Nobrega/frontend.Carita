@@ -32,14 +32,14 @@
         <!--Div inputCPF-->
         <div class="mb-3">
           <input
-            formControlName="CPF"
+            formControlName="cpf"
             type="text"
             class="form-control"
             placeholder="Insira seu CPF"
             required
           />
           <!--Validação CPF-->
-          <div *ngIf="myForm.get('CPF')?.invalid && myForm.get('CPF')?.touched">
+          <div *ngIf="myForm.get('cpf')?.invalid && myForm.get('cpf')?.touched">
             <span class="text-danger">O CPF deve conter 11 digitos</span>
           </div>
         </div>

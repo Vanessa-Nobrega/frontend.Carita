@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 
+import { UsuarioService } from '../../services/usuario.service';
+
 @Component({
   selector: 'app-campos-cadastro',
   standalone: true,
@@ -13,10 +15,10 @@ import { RouterLink, Router } from '@angular/router';
 export class CamposCadastroComponent {
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router){
+  constructor(private fb: FormBuilder, private router: Router, private service: UsuarioService ){
     this.myForm = this.fb.group({
       email:['',[Validators.required, Validators.email]],
-      CPF:['',[Validators.required,Validators.minLength(11)]],
+      cpf:['',[Validators.required,Validators.minLength(11)]],
       senha:['',[Validators.required, Validators.minLength(6)]]
     })
   }
@@ -25,9 +27,12 @@ export class CamposCadastroComponent {
     console.log(">> ", this.myForm.valid);
     if(this.myForm.valid){
       console.log(this.myForm.value)
+      try {
+        this.service.postUsuario(this.myForm.value).subscribe()
+      } catch (error) {
+        console.error(error)
+      }
       this.router.navigate(['/pagina-login'])
-
-
     }
   }
 }
