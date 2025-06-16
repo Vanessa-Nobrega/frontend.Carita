@@ -54,29 +54,29 @@
         <!--Input Nome-->
         <div class="row">
           <div class="form-group col-12">
-            <label for="org-name">Nome Organização</label>
+            <label for="nome">Nome Organização</label>
             <input
               type="text"
-              id="org-name"
+              id="nome"
               class="form-control"
               placeholder="Nome Completo"
-              formControlName="orgName"
+              formControlName="nome"
             />
 
             <!--Validação Nome-->
             <div
               *ngIf="
-                formOrganizacao.get('orgName')?.invalid &&
-                formOrganizacao.get('orgName')?.touched
+                formOrganizacao.get('nome')?.invalid &&
+                formOrganizacao.get('nome')?.touched
               "
               class="text-danger"
             >
               <small
-                *ngIf="formOrganizacao.get('orgName')?.errors?.['required']"
+                *ngIf="formOrganizacao.get('nome')?.errors?.['required']"
                 >O nome da organização é obrigatório.</small
               >
               <small
-                *ngIf="formOrganizacao.get('orgName')?.errors?.['minlength']"
+                *ngIf="formOrganizacao.get('nome')?.errors?.['minlength']"
                 >O nome deve ter no mínimo 3 caracteres.</small
               >
             </div>
@@ -177,21 +177,21 @@
         <!--Input Chave Pix-->
 
         <div class="form-group col-12">
-          <label for="chave-pix">Chave-Pix</label>
+          <label for="numeroPix">Chave-Pix</label>
           <input
             type="text"
             id="chave-pix"
             class="form-control"
-            formControlName="chavePix"
+            formControlName="numeroPix"
           />
           <div
             *ngIf="
-              formOrganizacao.get('chavePix')?.invalid &&
-              formOrganizacao.get('chavePix')?.touched
+              formOrganizacao.get('numeroPix')?.invalid &&
+              formOrganizacao.get('numeroPix')?.touched
             "
             class="text-danger"
           >
-            <small>O tipo de instituição é obrigatório.</small>
+            <small>O número da chave pix é obrigatório.</small>
           </div>
         </div>
 
@@ -214,10 +214,10 @@
 
         <div class="row">
           <div class="form-group col-5">
-            <label for="tipo-instituicao">Tipo Instituição</label>
+            <label for="tipoInstituicao">Tipo Instituição</label>
             <input
               type="text"
-              id="tipo-instituicao"
+              id="tipoInstituicao"
               class="form-control"
               placeholder="ex: ONG, Associação, Instituto"
               formControlName="tipoInstituicao"
@@ -238,10 +238,10 @@
           <!--Input Ano Fundação-->
 
           <div class="form-group col-2">
-            <label for="ano-fundacao">Ano fundação</label>
+            <label for="anoFundacao">Ano fundação</label>
             <input
               type="text"
-              id="ano-fundacao"
+              id="anoFundacao"
               class="form-control"
               formControlName="anoFundacao"
             />
@@ -268,10 +268,10 @@
           <!--Input Area de Atuação-->
 
           <div class="form-group col-5">
-            <label for="area-atuacao">Área de atuação</label>
+            <label for="areaAtuacao">Área de atuação</label>
             <input
               type="text"
-              id="area-atuacao"
+              id="areaAtuacao"
               class="form-control"
               placeholder="ex: Saúde, Educação, Meio Ambiente"
               formControlName="areaAtuacao"
@@ -294,28 +294,28 @@
 
         <div class="row">
           <div class="form-group col-12">
-            <label for="descricao">Descrição da Instituição</label>
+            <label for="descricaoInstituicao">Descrição da Instituição</label>
             <textarea
-              id="descricao"
+              id="descricaoInstituicao"
               class="form-control"
               placeholder="Descreva a instituição (ex: Missão, Visão, Objetivos)"
-              formControlName="descricao"
+              formControlName="descricaoInstituicao"
             ></textarea>
 
             <!--Validação Descrição-->
             <div
               *ngIf="
-                formOrganizacao.get('descricao')?.invalid &&
-                formOrganizacao.get('descricao')?.touched
+                formOrganizacao.get('descricaoInstituicao')?.invalid &&
+                formOrganizacao.get('descricaoInstituicao')?.touched
               "
               class="text-danger"
             >
               <small
-                *ngIf="formOrganizacao.get('descricao')?.errors?.['required']"
+                *ngIf="formOrganizacao.get('descricaoInstituicao')?.errors?.['required']"
                 >A descrição é obrigatória.</small
               >
               <small
-                *ngIf="formOrganizacao.get('descricao')?.errors?.['maxLength']"
+                *ngIf="formOrganizacao.get('descricaoInstituicao')?.errors?.['maxLength']"
                 >A descrição pode ter no máximo 500 caracteres.</small
               >
             </div>
@@ -513,6 +513,7 @@
               id="upload"
               formControlName="logo"
               accept=".pdf,.doc,.docx,.jpg,.png"
+             
             />
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
@@ -530,6 +531,7 @@
               id="documento"
               formControlName="documento"
               accept=".pdf,.doc,.docx,.jpg,.png"
+           
             />
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
@@ -537,6 +539,24 @@
           </div>
         </div>
 
+                <div class="row">
+          <div class="form-group col-12 anexo">
+            <label for="qrCode">Anexar QrCode</label>
+            <input
+              type="file"
+              class="form-control-file"
+              id="qrCode"
+              formControlName="qrCode"
+              accept=".pdf,.doc,.docx,.jpg,.png"
+             
+            />
+            <small class="form-text text-muted"
+              >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
+            >
+          </div>
+        </div>
+
+        
         <!--Botão Submit-->
 
         <div class="d-flex align-items-center justify-content-center">

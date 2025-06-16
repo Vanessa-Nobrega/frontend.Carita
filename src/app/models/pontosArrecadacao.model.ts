@@ -1,5 +1,5 @@
 export interface pontoArrecadacao {
-  id: number;
+  id?: number;
   logradouro: string;
   numero: string;
   bairro: string;
@@ -10,5 +10,5 @@ export interface pontoArrecadacao {
   idParceiro: number;
   latitude?: number;
   longitude?: number;
-  parceiro?: { nome: string };
+
 }

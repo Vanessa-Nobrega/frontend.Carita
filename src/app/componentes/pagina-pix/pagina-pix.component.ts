@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { OrganizacoesService } from '../../services/organizacoes.model';
+import { OrganizacoesService } from '../../services/organizacoes.service';
 import { Organizacao } from '../../models/organizacoes.model';
 
 @Component({

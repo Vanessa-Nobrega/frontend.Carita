@@ -10,7 +10,7 @@ import { pontoArrecadacao } from '../models/pontosArrecadacao.model';
 
 export class pontoArrecadacaoService {
  
-  private baseUrl = 'http://localhost:3000'; // URL do seu backend
+  private baseUrl = 'http://localhost:3000'; 
  
  
   constructor(private http: HttpClient) { }

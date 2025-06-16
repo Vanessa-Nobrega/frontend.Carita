@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ParceirosService } from '../../services/parceiros.service';
+import { pontoArrecadacaoService } from '../../services/pontoArrecadacao.service';
+import { AuthService } from '../../services/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-dados-parceiros',
@@ -13,11 +17,22 @@ import { CommonModule } from '@angular/common';
 export class DadosParceirosComponent {
   formParceiros: FormGroup;
   showAlert = false;
+   userId: number = 0;
   tipoParceiro: string = 'option1'; // 'option1' é o padrão (Parceiro Captador)
 
-  constructor(private fb: FormBuilder){
+
+  constructor(private fb: FormBuilder, private parceiroService: ParceirosService,private pontoAradacaoService: pontoArrecadacaoService){
+
+    const token: any = localStorage.getItem("token");
+  
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      console.log(decoded);
+      this.userId = decoded.id;
+    }
+
     this.formParceiros = this.fb.group({
-      orgName: ['', [Validators.required, Validators.minLength(3)]],
+      nome: ['', [Validators.required, Validators.minLength(3)]],
       cnpj: ['', [Validators.required, Validators.pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)]],
       telefone: ['', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{5}-\d{4}$/)]],
       email: ['', [Validators.required, Validators.email]],
@@ -31,19 +46,47 @@ export class DadosParceirosComponent {
       areaAtuacao: ['', Validators.required],
       logo: [null],
       documento: [null],
+    
     });
   }
 
-  onSubmit(): void {
-    if (this.formParceiros.valid) {
-      console.log('Formulário válido:', this.formParceiros.value);
-      this.showAlert = true;
-      setTimeout(() => (this.showAlert = false), 4000);
-      this.formParceiros.reset();
-    } else {
-      console.log('Formulário inválido');
+onSubmit(): void {
+  if (this.formParceiros.valid) {
+    const tipo = this.tipoParceiro === 'option1' ? 'Captador' : 'Divulgador';
+
+    const parceiroPayload: any = {
+      nome: this.formParceiros.value.nome,
+      cnpj: this.formParceiros.value.cnpj,
+      telefone: this.formParceiros.value.telefone,
+      email: this.formParceiros.value.email,
+      areaAtuacao: this.formParceiros.value.areaAtuacao,
+      tipoParceiro: tipo,
+      idUsuario: this.userId,
+      logo: this.formParceiros.value.logo,
+      documento: this.formParceiros.value.documento,
+    };
+
+    if (tipo === 'Captador') {
+      parceiroPayload.pontoArrecadacao = {
+        logradouro: this.formParceiros.value.logradouro,
+        numero: this.formParceiros.value.numero,
+        bairro: this.formParceiros.value.bairro,
+        cidade: this.formParceiros.value.cidade,
+        estado: this.formParceiros.value.estado,
+        cep: this.formParceiros.value.cep,
+        horarioFuncionamento: this.formParceiros.value.horarioFuncionamento
+      };
     }
+
+    this.parceiroService.postParceiros(parceiroPayload).subscribe({
+      next: () => {
+        this.showAlert = true;
+        this.formParceiros.reset();
+      },
+      error: (err) => console.error("Erro ao cadastrar parceiro:", err)
+    });
   }
+}
 
   onTipoParceiroChange(tipo: string) {
     this.tipoParceiro = tipo;

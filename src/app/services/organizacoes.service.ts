@@ -21,7 +21,8 @@ export class OrganizacoesService {
   postOrganizacoes(payload: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/organizacoes`, payload);
   }
-
- 
+getOrganizacaoByUsuarioId(idUsuario: number | string): Observable<any> {
+  return this.http.get(`${this.baseUrl}/organizacoes/usuario/${idUsuario}`);
+}
 
 }
