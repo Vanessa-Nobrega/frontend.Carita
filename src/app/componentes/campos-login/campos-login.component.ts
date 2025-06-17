@@ -2,7 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+
 import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-campos-login',
@@ -14,6 +16,7 @@ import { AuthService } from '../../services/auth.service';
 export class CamposLoginComponent {
  myForm: FormGroup;
   errorMessage = '';
+
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.myForm = this.fb.group({
@@ -45,3 +48,4 @@ export class CamposLoginComponent {
     });
   }
 }
+

@@ -2,19 +2,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 import { jwtDecode } from "jwt-decode";
  
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class UsuarioService {
+
  
   private baseUrl = 'http://localhost:3000';
  
  
+
   constructor(private http: HttpClient) { }
- 
+
   getUsuario(): Observable<any> {
 
    
@@ -28,12 +32,13 @@ export class UsuarioService {
 
     
   }
- 
+
   postUsuario(payload: any): Observable<any> {
     console.log("Payload enviado:", payload);
     return this.http.post(`${this.baseUrl}/usuarios`, payload);
   }
 
- 
-
+  loginUsuario(payload:any): Observable<any>{
+  return this.http.post(`${this.baseUrl}/autenticacao`,payload)
+}
 }
