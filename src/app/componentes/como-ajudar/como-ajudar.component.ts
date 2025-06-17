@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ MapaComponent, CommonModule],
   templateUrl: './como-ajudar.component.html',
-styleUrls: ['./como-ajudar.component.css']
+styleUrl: './como-ajudar.component.css'
 })
 export class ComoAjudarComponent  implements OnInit {
   pontosArrecadacao: pontoArrecadacao[] = [];

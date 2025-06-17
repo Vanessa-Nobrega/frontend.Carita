@@ -10,5 +10,6 @@ export interface pontoArrecadacao {
   idParceiro: number;
   latitude?: number;
   longitude?: number;
+  parceiro?: any;
 
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  OnInit } from '@angular/core';
 import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
@@ -12,7 +12,7 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './dados-instituicao.component.html',
   styleUrl: './dados-instituicao.component.css'
 })
-export class DadosInstituicaoComponent {
+export class DadosInstituicaoComponent implements OnInit {
 
    formOrganizacao: FormGroup;
    errorMessage = '';
@@ -22,6 +22,7 @@ export class DadosInstituicaoComponent {
 
   constructor(private fb: FormBuilder, 
     private organizacaoService: OrganizacoesService,private router: Router){
+      
     const token: any = localStorage.getItem("token");
       console.log(token)
       if (token) {
@@ -53,6 +54,21 @@ export class DadosInstituicaoComponent {
       idUsuario: this.userId
     });
   }
+
+  ngOnInit(): void {
+  if (this.userId) {
+    this.organizacaoService.getOrganizacaoByUsuarioId(this.userId).subscribe({
+      next: (data) => {
+        console.log('Organização carregada:', data);
+        this.formOrganizacao.patchValue(data);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar organização:', err);
+      }
+    });
+  }
+}
+
 
 
   onSubmit(){
