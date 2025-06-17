@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
-import { UsuarioService } from '../../services/usuario.service';
+
 
 @Component({
   selector: 'app-campos-cadastro',
@@ -30,7 +30,7 @@ export class CamposCadastroComponent {
     console.log(">> ", this.myForm.valid);
     if(this.myForm.valid){
 
-      const { email, senha, CPF } = this.myForm.value;
+      const { email, senha, cpf:CPF } = this.myForm.value;
       
       this.usuarioService.postUsuario({email, senha, cpf: CPF, status: true}).subscribe({
       next: (res) => {
