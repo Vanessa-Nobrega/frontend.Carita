@@ -5,6 +5,10 @@ import { Router, RouterLink } from '@angular/router';
 import { OrganizacoesService } from '../../services/organizacoes.service';
 import { jwtDecode } from 'jwt-decode';
 
+class ImageSnippet {
+  constructor(public src: string, public file: File) {}
+}
+
 @Component({
   selector: 'app-dados-instituicao',
   standalone: true,
@@ -13,12 +17,15 @@ import { jwtDecode } from 'jwt-decode';
   styleUrl: './dados-instituicao.component.css'
 })
 export class DadosInstituicaoComponent implements OnInit {
-
+   logo: string = "";
+  //  documento: string
    formOrganizacao: FormGroup;
    errorMessage = '';
   showAlert = false; 
     userId: number = 0;
- 
+    selectedFile: ImageSnippet | undefined;
+   arquivos: { [key: string]: File } = {};
+
 
   constructor(private fb: FormBuilder, 
     private organizacaoService: OrganizacoesService,private router: Router){
@@ -70,19 +77,43 @@ export class DadosInstituicaoComponent implements OnInit {
 }
 
 
+  onFileChange(event: Event, campo: string) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.arquivos[campo] = input.files[0];
+    }
+  }
+
 
   onSubmit(){
     console.log(this.formOrganizacao.value);
     console.log(">> ", this.formOrganizacao.valid);
     if(this.formOrganizacao.valid){
       const formData = this.formOrganizacao.value;
-
-      this.organizacaoService.postOrganizacoes(formData).subscribe({
-      next: (res) => {
+      console.log("Teste da mensagem")
+      const data = new FormData();
+      console.log("Teste da mensagem")
+      // Adiciona arquivo
+     
+      // data.append('qrCode', this.selectedFile.file);
       
+      for (const chave in this.arquivos) {
+        data.append(chave, this.arquivos[chave]);
+      }
+    console.log("Teste da mensagem")
+
+      Object.entries(formData).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          data.append(key, value as string);
+        }
+      });
+
+      this.organizacaoService.postOrganizacoes(data).subscribe({
+      next: (res: any) => {
+        console.log("Cadastrado com Sucesso")
        
       },
-      error: (err) => {
+      error: (err: any) => {
         
         console.error(err);
       }

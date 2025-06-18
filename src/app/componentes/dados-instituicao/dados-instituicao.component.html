@@ -8,8 +8,8 @@
       <div class="sidebar-content">
         <!--Imagem Sidebar-->
         <div class="dados-instituição d-flex flex-column align-items-center">
-          <img
-            src="/img/Usuario/img-perfil.png"
+          <img *ngIf="logo"
+            [src]="logo"
             alt="Logo"
             class="img-usuario d-inline-block align-text-top"
           />
@@ -513,6 +513,7 @@
               id="upload"
               formControlName="logo"
               accept=".pdf,.doc,.docx,.jpg,.png"
+              (change)="onFileChange($event, 'logo')"
              
             />
             <small class="form-text text-muted"
@@ -531,7 +532,7 @@
               id="documento"
               formControlName="documento"
               accept=".pdf,.doc,.docx,.jpg,.png"
-           
+              (change)="onFileChange($event, 'documento')"
             />
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
@@ -548,8 +549,9 @@
               id="qrCode"
               formControlName="qrCode"
               accept=".pdf,.doc,.docx,.jpg,.png"
+              (change)="onFileChange($event, 'qrCode')" />
              
-            />
+            
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
             >
