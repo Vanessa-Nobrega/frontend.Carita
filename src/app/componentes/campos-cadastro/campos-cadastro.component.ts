@@ -16,6 +16,7 @@ import { UsuarioService } from '../../services/usuario.service';
 export class CamposCadastroComponent {
   myForm: FormGroup;
 
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private usuarioService: UsuarioService, private router: Router){
 
@@ -26,6 +27,9 @@ export class CamposCadastroComponent {
     })
   }
   onSubmit(){
+
+    this.errorMessage = '';
+
     console.log(this.myForm.value);
     console.log(">> ", this.myForm.valid);
     if(this.myForm.valid){
@@ -41,6 +45,19 @@ export class CamposCadastroComponent {
       error: (err) => {
         //this.errorMessage = 'E-mail ou senha inválidos.';
         console.error(err);
+
+        if (this.myForm.invalid) {
+          this.errorMessage = 'Preencha todos os campos corretamente.';
+          this.myForm.markAllAsTouched(); // força mostrar os erros dos campos
+        return;
+        }
+
+         if (err.status === 400 && err.error?.message) {
+            this.errorMessage = err.error.message;
+          } else {
+            this.errorMessage = 'E-mail já cadastrado.';
+          }
+
       }
     });
       //this.router.navigate(['/pagina-login'])
