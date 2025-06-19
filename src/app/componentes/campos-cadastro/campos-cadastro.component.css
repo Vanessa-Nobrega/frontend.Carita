@@ -51,3 +51,9 @@
   text-decoration: none;
   color: white; /* Cor do link "Criar conta" */
 }
+
+.cadastro-form span.text-danger {
+  color: #fff1e3 !important;
+  font-weight: bold;      
+  font-size: 0.95rem; 
+}

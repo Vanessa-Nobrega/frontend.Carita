@@ -22,11 +22,11 @@
           />
 
           <!--Validação Email-->
-          <div
+          <!-- <div
             *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched"
           >
             <span class="text-danger">Email Inválido</span>
-          </div>
+          </div> -->
 
           <!--Input Senha-->
         </div>
@@ -41,13 +41,13 @@
           />
 
           <!--Validação Senha-->
-          <div
+          <!-- <div
             *ngIf="myForm.get('senha')?.invalid && myForm.get('senha')?.touched"
           >
             <span class="text-danger">
-              sua senha deve conter pelo menos 6 caracteres</span
+              Senha inválida</span
             >
-          </div>
+          </div> -->
         </div>
 
         <!--Botão Entrar-->
@@ -55,6 +55,10 @@
           <button type="submit"  class="btn btn-primary">
             Entrar
           </button>
+
+          <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center fw-bold">
+  {{ errorMessage }}
+</div>
 
           <!--Link para página de Cadastro-->
         </div>

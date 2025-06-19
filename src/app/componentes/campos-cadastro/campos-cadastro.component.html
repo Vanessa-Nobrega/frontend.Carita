@@ -25,8 +25,9 @@
           />
           <!--Validação Email-->
           <div *ngIf="myForm.get('email')?.invalid && myForm.get('email')?.touched">
-            <span class="text-danger">Email Inválido</span>
+            <span class="text-danger fw-bold">Email inválido</span>
           </div>
+
         </div>
 
         <!--Div inputCPF-->
@@ -40,7 +41,7 @@
           />
           <!--Validação CPF-->
           <div *ngIf="myForm.get('cpf')?.invalid && myForm.get('cpf')?.touched">
-            <span class="text-danger">O CPF deve conter 11 digitos</span>
+            <span class="text-danger">O CPF deve conter 11 dígitos</span>
           </div>
         </div>
 
@@ -65,6 +66,10 @@
           <button type="submit" class="btn btn-primary">
             Cadastrar
           </button>
+        </div>
+
+         <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+          {{ errorMessage }}
         </div>
 
         <div class="text-center mt-3">
