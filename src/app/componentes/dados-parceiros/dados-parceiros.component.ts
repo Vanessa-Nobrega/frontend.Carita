@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,10 @@ import { jwtDecode } from 'jwt-decode';
   templateUrl: './dados-parceiros.component.html',
   styleUrl: './dados-parceiros.component.css'
 })
-export class DadosParceirosComponent {
+export class DadosParceirosComponent  implements OnInit {
+
+  parceiro: any; // para armazenar o parceiro carregado
+
   formParceiros: FormGroup;
   showAlert = false;
    userId: number = 0;
@@ -48,6 +51,48 @@ export class DadosParceirosComponent {
       documento: [null],
     
     });
+  }
+
+  ngOnInit() {
+    if(this.userId){
+      this.carregarParceiro();
+    }
+  }
+
+  carregarParceiro() {
+    this.parceiroService.getParceiroByUsuarioId(this.userId).subscribe({
+      next: (parceiro) => {
+        this.parceiro = parceiro;
+        this.preencherFormulario(parceiro);
+      },
+      error: (err) => {
+        console.error("Parceiro não encontrado", err);
+        
+      }
+    });
+  }
+
+  preencherFormulario(parceiro: any) {
+    this.formParceiros.patchValue({
+      nome: parceiro.nome,
+      cnpj: parceiro.cnpj,
+      telefone: parceiro.telefone,
+      email: parceiro.email,
+      areaAtuacao: parceiro.areaAtuacao,
+            
+      // Dados do ponto de arrecadação (se houver)
+      logradouro: parceiro.pontoArrecadacao?.logradouro || '',
+      numero: parceiro.pontoArrecadacao?.numero || '',
+      bairro: parceiro.pontoArrecadacao?.bairro || '',
+      cidade: parceiro.pontoArrecadacao?.cidade || '',
+      estado: parceiro.pontoArrecadacao?.estado || '',
+      cep: parceiro.pontoArrecadacao?.cep || '',
+      horarioFuncionamento: parceiro.pontoArrecadacao?.horarioFuncionamento || '',
+      logo: parceiro.logo || null,
+      documento: parceiro.documento || null,
+    });
+
+    this.tipoParceiro = parceiro.tipoParceiro; // Ajuste se necessário
   }
 
 onSubmit(): void {

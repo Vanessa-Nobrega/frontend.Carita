@@ -47,30 +47,7 @@
       >
         <h2 class="text-center">Dados do Representante</h2>
 
-        <!--INput Nome-->
-        <div class="row align-items-center">
-          <div class="form-group col-11">
-            <label for="org-name">Nome</label>
-            <input
-              formControlName="nome"
-              type="text"
-              id="org-name"
-              name="org-name"
-              class="form-control"
-              placeholder="Nome completo"
-            />
-
-            <!--Validação Nome-->
-            <div
-              *ngIf="
-                RepresentanteParceirosForm.get('nome')?.invalid &&
-                RepresentanteParceirosForm.get('nome')?.touched
-              "
-            >
-              <span class="text-danger">O campo não pode estar vazio</span>
-            </div>
-          </div>
-        </div>
+      
 
         <!-- Input de CPF  -->
         <div class="row align-items-center mt-3">
