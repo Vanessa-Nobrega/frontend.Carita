@@ -8,12 +8,12 @@
       <div class="sidebar-content">
         <!--Imagem Sidebar-->
         <div class="dados-instituição d-flex flex-column align-items-center">
-          <img *ngIf="logo"
-            [src]="logo"
+           <img
+            src="\img\logo.png"
             alt="Logo"
             class="img-usuario d-inline-block align-text-top"
           />
-          <a class="navbar-brand"> Olá, nome Organização! </a>
+          <a class="navbar-brand"> Olá, Organização! </a>
         </div>
 
         <!--Tópicos Sidebar-->
@@ -34,6 +34,11 @@
 
           <li class="nav-item">
             <a routerLink="/pagina-desativarOng" class="nav-link">Desativar</a>
+          </li>
+          <li class="nav-item">
+            <a (click)="logout()" class="nav-link" style="cursor: pointer"
+              >Sair</a
+            >
           </li>
         </ul>
       </div>
@@ -71,12 +76,10 @@
               "
               class="text-danger"
             >
-              <small
-                *ngIf="formOrganizacao.get('nome')?.errors?.['required']"
+              <small *ngIf="formOrganizacao.get('nome')?.errors?.['required']"
                 >O nome da organização é obrigatório.</small
               >
-              <small
-                *ngIf="formOrganizacao.get('nome')?.errors?.['minlength']"
+              <small *ngIf="formOrganizacao.get('nome')?.errors?.['minlength']"
                 >O nome deve ter no mínimo 3 caracteres.</small
               >
             </div>
@@ -171,8 +174,6 @@
             </div>
           </div>
         </div>
-
-
 
         <!--Input Chave Pix-->
 
@@ -320,10 +321,9 @@
               >
             </div>
           </div>
-
         </div>
 
-         <!--Input Endereço-->
+        <!--Input Endereço-->
 
         <!--Input Logradouro-->
         <div class="row">
@@ -514,7 +514,6 @@
               formControlName="logo"
               accept=".pdf,.doc,.docx,.jpg,.png"
               (change)="onFileChange($event, 'logo')"
-             
             />
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
@@ -540,7 +539,7 @@
           </div>
         </div>
 
-                <div class="row">
+        <div class="row">
           <div class="form-group col-12 anexo">
             <label for="qrCode">Anexar QrCode</label>
             <input
@@ -549,33 +548,32 @@
               id="qrCode"
               formControlName="qrCode"
               accept=".pdf,.doc,.docx,.jpg,.png"
-              (change)="onFileChange($event, 'qrCode')" />
-             
-            
+              (change)="onFileChange($event, 'qrCode')"
+            />
+
             <small class="form-text text-muted"
               >(Aceitamos arquivos PDF, DOC, DOCX, JPG e PNG.)</small
             >
           </div>
         </div>
 
-        
         <!--Botão Submit-->
 
         <div class="d-flex align-items-center justify-content-center">
           <div class="form-group">
-          <button
-            type="submit"
-            class="btn btn-enviar"
-            [disabled]="formOrganizacao.invalid"
-          >
-            Enviar
-          </button>
+            <button
+              type="submit"
+              class="btn btn-enviar"
+              [disabled]="formOrganizacao.invalid"
+            >
+              Enviar
+            </button>
 
-          <div *ngIf="showAlert" class="alert mt-3 text-center" role="alert">
-            Dados enviados com sucesso!
+            <div *ngIf="showAlert" class="alert mt-3 text-center" role="alert">
+              Dados enviados com sucesso!
+            </div>
           </div>
         </div>
-          </div>
       </form>
     </div>
   </div>

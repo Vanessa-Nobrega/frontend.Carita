@@ -77,6 +77,7 @@ export class DadosInstituicaoComponent implements OnInit {
 }
 
 
+
   onFileChange(event: Event, campo: string) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -122,6 +123,11 @@ export class DadosInstituicaoComponent implements OnInit {
 
 
     }
+    
+  }
+   logout() {
+    localStorage.removeItem('token'); // ou sessionStorage.clear();
+    this.router.navigate(['/pagina-login']); // redireciona para a página de login
   }
 }
 
