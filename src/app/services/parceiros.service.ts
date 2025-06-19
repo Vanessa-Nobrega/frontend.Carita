@@ -18,13 +18,12 @@ export class ParceirosService {
     return this.http.get(`${this.baseUrl}/parceiros`);
   }
  
-  postParceiros(payload: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/parceiros`, payload);
-  }
-
+postParceiros(payload: any): Observable<any> {
+  return this.http.post(`${this.baseUrl}/parceiros/cadastrar-com-ponto`, payload);
+}
 
 getParceiroByUsuarioId(idUsuario: number | string): Observable<any> {
-  return this.http.get(`${this.baseUrl}/parceiros/${idUsuario}`);
+  return this.http.get(`${this.baseUrl}/parceiros/usuario/${idUsuario}`);
 }
 
 }
