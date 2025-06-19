@@ -3,7 +3,6 @@ import { RouterOutlet,NavigationEnd,Router } from '@angular/router';
 import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./componentes/footer/footer.component";
 import { AcessibilidadeComponent } from "./componentes/acessibilidade/acessibilidade.component";
-import { ApiService } from './api.service';
 
 @Component({
   selector: 'app-root',
@@ -17,15 +16,14 @@ export class AppComponent {
   title = 'CaritaII';
   focaveis: HTMLElement[] = [];
    focoAtual: number = 0;
-  pokemons: any;
 isTeclado = false;
-  constructor(private apiService: ApiService,private router: Router) {
+  constructor(private router: Router) {
 
   }
 
   ngAfterViewInit() {
     setTimeout(() => {
-      this.getPokemons();
+      
         this.atualizarFocaveis();
     this.focarElemento(this.focoAtual);
     });
@@ -115,11 +113,6 @@ focarElemento(index: number) {
     }
   }
 
-  getPokemons() {
-    this.apiService.getPokemons().subscribe((res) => {
-      console.log(res);
-      this.pokemons = res;
-    });
-  }
+
 
 }

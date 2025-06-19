@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 import  {UsuarioService } from '../../services/usuario.service';
 import { jwtDecode } from 'jwt-decode';
 
@@ -18,7 +18,7 @@ export class DadosRepresentanteComponent implements OnInit {
   showAlert = false;
   userId: number = 0;
 
-  constructor(private fb: FormBuilder,private usuarioService : UsuarioService){
+  constructor(private fb: FormBuilder,private usuarioService : UsuarioService, private router: Router){
 
     const token: any = localStorage.getItem("token");
           console.log(token)
@@ -54,6 +54,7 @@ export class DadosRepresentanteComponent implements OnInit {
     }
   }
 
+ 
   
 
   onSubmit(): void {
@@ -65,6 +66,11 @@ export class DadosRepresentanteComponent implements OnInit {
     } else {
       console.log('Formulário inválido');
     }
+  }
+
+    logout() {
+    localStorage.removeItem('token'); // ou sessionStorage.clear();
+    this.router.navigate(['/pagina-login']); // redireciona para a página de login
   }
 }
 

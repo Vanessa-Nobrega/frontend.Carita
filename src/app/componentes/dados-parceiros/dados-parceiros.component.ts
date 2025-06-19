@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ParceirosService } from '../../services/parceiros.service';
@@ -24,7 +24,7 @@ export class DadosParceirosComponent  implements OnInit {
   tipoParceiro: string = 'option1'; // 'option1' é o padrão (Parceiro Captador)
 
 
-  constructor(private fb: FormBuilder, private parceiroService: ParceirosService,private pontoAradacaoService: pontoArrecadacaoService){
+  constructor(private fb: FormBuilder, private parceiroService: ParceirosService,private pontoAradacaoService: pontoArrecadacaoService, private router: Router){
 
     const token: any = localStorage.getItem("token");
   
@@ -133,7 +133,13 @@ onSubmit(): void {
   }
 }
 
+
   onTipoParceiroChange(tipo: string) {
     this.tipoParceiro = tipo;
+  }
+
+   logout() {
+    localStorage.removeItem('token'); // ou sessionStorage.clear();
+    this.router.navigate(['/pagina-login']); // redireciona para a página de login
   }
 }

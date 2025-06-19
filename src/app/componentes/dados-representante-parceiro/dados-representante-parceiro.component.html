@@ -7,11 +7,11 @@
       <div class="sidebar-content">
         <div class="dados-instituição d-flex flex-column align-items-center">
           <img
-            src="/img/Usuario/img-perfil.png"
+            src="\img\logo.png"
             alt="Logo"
             class="img-usuario d-inline-block align-text-top"
           />
-          <a class="navbar-brand"> Olá, nome Parceiro! </a>
+          <a class="navbar-brand"> Olá, Parceiro! </a>
         </div>
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -33,6 +33,11 @@
               >Desativar</a
             >
           </li>
+          <li class="nav-item">
+            <a (click)="logout()" class="nav-link" style="cursor: pointer"
+              >Sair</a
+            >
+          </li>
         </ul>
       </div>
     </div>
@@ -46,8 +51,6 @@
         class="form-content container-fluid"
       >
         <h2 class="text-center">Dados do Representante</h2>
-
-      
 
         <!-- Input de CPF  -->
         <div class="row align-items-center mt-3">
