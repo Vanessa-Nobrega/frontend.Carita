@@ -1,3 +1,4 @@
+
 <!--Página Bkackgtounf-->
 <div tabindex="0" class="container-fluid main-content">
   <!--Background área Formulário-->
@@ -20,7 +21,7 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a
-              routerLink="/pagina-ong"
+              routerLink="pagina-ongId"
               class="nav-link active"
               aria-current="page"
               >Dados Instituição</a
@@ -67,6 +68,8 @@
               class="form-control"
               placeholder="Nome Completo"
               formControlName="nome"
+              [disabled]="formDisabled"
+              
               
 
             />
@@ -99,6 +102,7 @@
               class="form-control"
               placeholder="00.000.000/0000-00"
               formControlName="cnpj"
+              [disabled]="formDisabled"
               
             />
             <!--Validação CNPJ-->
@@ -127,6 +131,7 @@
               class="form-control"
               placeholder="(00) 00000-0000"
               formControlName="telefone"
+              [disabled]="formDisabled"
               
 
             />
@@ -161,6 +166,7 @@
               class="form-control"
               placeholder="exemplo@dominio.com"
               formControlName="email"
+              [disabled]="formDisabled"
               
 
             />
@@ -192,6 +198,7 @@
             id="chave-pix"
             class="form-control"
             formControlName="numeroPix"
+            [disabled]="formDisabled"
             
 
           />
@@ -218,6 +225,7 @@
               class="form-control"
               placeholder="https://www.exemplo.com"
               formControlName="site"
+              [disabled]="formDisabled"
               
 
             />
@@ -235,6 +243,7 @@
               class="form-control"
               placeholder="ex: ONG, Associação, Instituto"
               formControlName="tipoInstituicao"
+              [disabled]="formDisabled"
               
 
             />
@@ -260,6 +269,7 @@
               id="anoFundacao"
               class="form-control"
               formControlName="anoFundacao"
+              [disabled]="formDisabled"
               
 
             />
@@ -293,6 +303,7 @@
               class="form-control"
               placeholder="ex: Saúde, Educação, Meio Ambiente"
               formControlName="areaAtuacao"
+              [disabled]="formDisabled"
               
 
             />
@@ -320,6 +331,7 @@
               class="form-control"
               placeholder="Descreva a instituição (ex: Missão, Visão, Objetivos)"
               formControlName="descricaoInstituicao"
+              [disabled]="formDisabled"
               
 
             ></textarea>
@@ -356,6 +368,7 @@
               class="form-control"
               placeholder="Rua Exemplo, 123"
               formControlName="logradouro"
+              [disabled]="formDisabled"
               
 
             />
@@ -382,6 +395,7 @@
               id="numero"
               class="form-control"
               formControlName="numero"
+              [disabled]="formDisabled"
               
             
             />
@@ -415,6 +429,7 @@
               class="form-control"
               placeholder="Bairro Exemplo"
               formControlName="bairro"
+              [disabled]="formDisabled"
               
               
             />
@@ -447,6 +462,7 @@
               class="form-control"
               placeholder="Cidade Exemplo"
               formControlName="cidade"
+              [disabled]="formDisabled"
               
               
             />
@@ -478,6 +494,7 @@
               class="form-control"
               placeholder="ex: São Paulo"
               formControlName="estado"
+              [disabled]="formDisabled"
                            
             />
 
@@ -511,6 +528,7 @@
               class="form-control"
               placeholder="00000-000"
               formControlName="cep"
+              [disabled]="formDisabled"
               
             
             />
@@ -544,8 +562,12 @@
     id="logo"
     formControlName="logo"
     (change)="onFileChange($event, 'logo')"
-    
-  />
+    [disabled]="formDisabled"
+    />
+
+    <small class="form-text text-muted" *ngIf="formDisabled">
+      Arquivo enviado. Para alterar, clique em "Atualizar Dados".
+    </small>
 </div>
 
         <!-- Anexar Documento -->
@@ -558,8 +580,12 @@
     id="documento"
     formControlName="documento"
     (change)="onFileChange($event, 'documento')"
-    
-  />
+    [disabled]="formDisabled"
+    />
+
+     <small class="form-text text-muted" *ngIf="formDisabled">
+      Arquivo enviado. Para alterar, clique em "Atualizar Dados".
+    </small>
 </div>  
 
         <!-- Anexar QrCode -->
@@ -571,18 +597,39 @@
     id="qrCode"
     formControlName="qrCode"
     (change)="onFileChange($event, 'qrCode')"
-    
-  />
+    [disabled]="formDisabled"
+    />
+
+     <small class="form-text text-muted" *ngIf="formDisabled">
+      Arquivo enviado. Para alterar, clique em "Atualizar Dados".
+    </small>
   </div>
 
 <!--Botão Submit-->
       
-<div class="text-end mb-3">
-  <!-- Botão -->
-   <button type="submit" class="btn btn-primary" [disabled]="formOrganizacao.invalid">
-    Enviar
-  </button>
-</div>
+ <div class="mb-3">
+    <button
+      type="button"
+      class="btn btn-warning"
+      *ngIf="formDisabled"
+      (click)="enableEditing()"
+    >
+      Atualizar Dados
+    </button>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      *ngIf="!formDisabled"
+      [disabled]="formOrganizacao.invalid"
+    >
+      Salvar Alterações
+    </button>
+  </div>
+
+  <!-- Mensagens -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
       </form>
     </div>
   </div>

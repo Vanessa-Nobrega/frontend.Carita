@@ -25,4 +25,7 @@ getOrganizacaoByUsuarioId(idUsuario: number | string): Observable<any> {
   return this.http.get(`${this.baseUrl}/organizacoes/usuario/${idUsuario}`);
 }
 
+updateOrganizacao(id: number, payload: any): Observable<any> {
+  return this.http.put(`${this.baseUrl}/organizacoes/${id}`, payload);
+}
 }

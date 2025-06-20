@@ -1,13 +1,9 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder,  FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { OrganizacoesService } from '../../services/organizacoes.service';
 import { jwtDecode } from 'jwt-decode';
-
-class ImageSnippet {
-  constructor(public src: string, public file: File) {}
-}
 
 @Component({
   selector: 'app-dados-instituicao',
@@ -16,118 +12,73 @@ class ImageSnippet {
   templateUrl: './dados-instituicao.component.html',
   styleUrl: './dados-instituicao.component.css'
 })
-export class DadosInstituicaoComponent implements OnInit {
-   logo: string = "";
-  //  documento: string
-   formOrganizacao: FormGroup;
-   errorMessage = '';
-  showAlert = false; 
-    userId: number = 0;
-    selectedFile: ImageSnippet | undefined;
-   arquivos: { [key: string]: File } = {};
+export class DadosInstituicaoComponent  {
+ formOrganizacao: FormGroup;
+  arquivos: { [key: string]: File } = {};
+  userId: number = 0;
 
+  constructor(
+    private fb: FormBuilder,
+    private organizacaoService: OrganizacoesService,
+    private router: Router
+  ) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded: any = jwtDecode(token);
+      this.userId = decoded.id;
+    }
 
-  constructor(private fb: FormBuilder, 
-    private organizacaoService: OrganizacoesService,private router: Router){
-      
-    const token: any = localStorage.getItem("token");
-      console.log(token)
-      if (token) {
-        const decoded: any = jwtDecode(token);
-        console.log(decoded);
-        this.userId = decoded.id;
-      }
     this.formOrganizacao = this.fb.group({
-      nome: ['', [Validators.required, Validators.minLength(3)]],
-      cnpj: ['', [Validators.required, Validators.pattern(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/)]],
-      telefone: ['', [Validators.required, Validators.pattern(/^\(\d{2}\) \d{5}-\d{4}$/)]],
+      nome: ['', Validators.required],
+      cnpj: ['', Validators.required],
+      telefone: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      logradouro: ['', [Validators.required]],
-      numero: ['', [Validators.required, Validators.minLength(2)]],
-      bairro: ['', [Validators.required, Validators.minLength(5)]],
-      cidade: ['', [Validators.required, Validators.minLength(2)]],
-      estado: ['', [Validators.required, Validators.minLength(2)]],
-      cep: ['', [Validators.required, Validators.pattern(/^\d{5}-\d{3}$/)]],
-      
-      numeroPix: ['',[Validators.required]],
+      logradouro: ['', Validators.required],
+      numero: ['', Validators.required],
+      bairro: ['', Validators.required],
+      cidade: ['', Validators.required],
+      estado: ['', Validators.required],
+      cep: ['', Validators.required],
+      numeroPix: ['', Validators.required],
       site: [''],
-      tipoInstituicao: ['', [Validators.required]],
-      anoFundacao: ['', [Validators.required, Validators.pattern(/^\d{4}$/)]],
-      areaAtuacao: ['', [Validators.required]],
-      descricaoInstituicao: ['', [Validators.required, Validators.maxLength(500)]],
+      tipoInstituicao: ['', Validators.required],
+      anoFundacao: ['', Validators.required],
+      areaAtuacao: ['', Validators.required],
+      descricaoInstituicao: ['', Validators.required],
       logo: [null],
       documento: [null],
       qrCode: [null],
-      idUsuario: this.userId
+      idUsuario: [this.userId]
     });
   }
 
-  ngOnInit(): void {
-  if (this.userId) {
-    this.organizacaoService.getOrganizacaoByUsuarioId(this.userId).subscribe({
-      next: (data) => {
-        console.log('Organização carregada:', data);
-        this.formOrganizacao.patchValue(data);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar organização:', err);
-      }
-    });
-  }
-}
-
-
-
-  onFileChange(event: Event, campo: string) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.arquivos[campo] = input.files[0];
+  onFileChange(event: any, campo: string) {
+    if (event.target.files.length > 0) {
+      this.arquivos[campo] = event.target.files[0];
     }
   }
 
-
-  onSubmit(){
-    console.log(this.formOrganizacao.value);
-    console.log(">> ", this.formOrganizacao.valid);
-    if(this.formOrganizacao.valid){
-      const formData = this.formOrganizacao.value;
-      console.log("Teste da mensagem")
-      const data = new FormData();
-      console.log("Teste da mensagem")
-      // Adiciona arquivo
-     
-      // data.append('qrCode', this.selectedFile.file);
-      
+  onSubmit() {
+    if (this.formOrganizacao.valid) {
+      const formData = new FormData();
       for (const chave in this.arquivos) {
-        data.append(chave, this.arquivos[chave]);
+        formData.append(chave, this.arquivos[chave]);
       }
-    console.log("Teste da mensagem")
-
-      Object.entries(formData).forEach(([key, value]) => {
+      Object.entries(this.formOrganizacao.value).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          data.append(key, value as string);
+          formData.append(key, value instanceof Blob ? value : String(value));
         }
       });
 
-      this.organizacaoService.postOrganizacoes(data).subscribe({
-      next: (res: any) => {
-        console.log("Cadastrado com Sucesso")
-       
-      },
-      error: (err: any) => {
-        
-        console.error(err);
-      }
-    });
-     
-
-
+      this.organizacaoService.postOrganizacoes(formData).subscribe({
+        next: () => this.router.navigate(['/pagina-ongId']),
+        error: err => console.error('Erro ao cadastrar:', err)
+      });
     }
-    
   }
-   logout() {
+
+    logout() {
     localStorage.removeItem('token'); // ou sessionStorage.clear();
     this.router.navigate(['/pagina-login']); // redireciona para a página de login
   }
 }
-
