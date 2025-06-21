@@ -33,6 +33,8 @@ export class PaginaPrecadastroComponent {
     return;
   }
 
+
+
   if (!userId) {
     this.router.navigate(['/pagina-login']);
     return;
@@ -53,5 +55,6 @@ export class PaginaPrecadastroComponent {
       this.router.navigate(['/pagina-ong']);
     }
   });
+
 }
 }

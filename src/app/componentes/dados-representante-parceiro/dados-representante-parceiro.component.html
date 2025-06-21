@@ -57,7 +57,7 @@
           <div class="form-group col-11">
             <label for="cpf">CPF</label>
             <input
-              formControlName="CPF"
+              formControlName="cpf"
               type="text"
               id="cpf"
               name="cpf"
@@ -67,8 +67,8 @@
             <!--Validação CPF-->
             <div
               *ngIf="
-                RepresentanteParceirosForm.get('CPF')?.invalid &&
-                RepresentanteParceirosForm.get('CPF')?.touched
+                RepresentanteParceirosForm.get('cpf')?.invalid &&
+                RepresentanteParceirosForm.get('cpf')?.touched
               "
             >
               <span class="text-danger">O CPF deve conter 11 digitos</span>

@@ -11,7 +11,7 @@ import { OrganizacoesService } from '../../services/organizacoes.service';
   standalone: true,
   imports: [RouterLink,CommonModule,ReactiveFormsModule],
   templateUrl: './dados-representante.component.html',
-  styleUrl: './dados-representante.component.css'
+  styleUrls: ['./dados-representante.component.css']
 })
 export class DadosRepresentanteComponent implements OnInit {
   RepresentanteForm: FormGroup;
@@ -31,10 +31,11 @@ export class DadosRepresentanteComponent implements OnInit {
 
     this.RepresentanteForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],  // Usando array para validadores
-      CPF: ['', [Validators.required, Validators.minLength(11)]],  // Usando array para validadores
-      nome: ['', [Validators.required, Validators.minLength(3)]]  // Usando array para validadores
+      cpf: ['', [Validators.required, Validators.minLength(11)]],  // Usando array para validadores
+     // nome: ['', [Validators.required, Validators.minLength(3)]]  // Usando array para validadores
     });
   }
+
 
    ngOnInit(): void {
     if (this.userId) {
@@ -43,8 +44,8 @@ export class DadosRepresentanteComponent implements OnInit {
           console.log('Usuário carregado:', usuario);
           this.RepresentanteForm.patchValue({
             email: usuario.email,
-            CPF: usuario.cpf,
-            
+            cpf: usuario.cpf,
+
           });
         },
         error: (err) => {
@@ -54,6 +55,7 @@ export class DadosRepresentanteComponent implements OnInit {
       });
     }
   }
+
 
 irParaDadosOrganizacao() {
   if (!this.userId) {
@@ -82,19 +84,26 @@ irParaDadosOrganizacao() {
   });
 }
 
- 
-  
 
-  onSubmit(): void {
-    if (this.RepresentanteForm.valid) {
-      console.log('Formulário válido:', this.RepresentanteForm.value);
-      this.showAlert = true;
-      setTimeout(() => (this.showAlert = false), 4000);
-      this.RepresentanteForm.reset();
-    } else {
-      console.log('Formulário inválido');
-    }
+ onSubmit(): void {
+  if (this.RepresentanteForm.valid) {
+    const dadosAtualizados = this.RepresentanteForm.value;
+
+    this.usuarioService.updateUsuario(this.userId, dadosAtualizados).subscribe({
+      next: (res) => {
+        console.log('Usuário atualizado com sucesso:', res);
+        this.showAlert = true;
+        setTimeout(() => (this.showAlert = false), 4000);
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar usuário:', err);
+        this.errorMessage = 'Erro ao atualizar os dados.';
+      }
+    });
+  } else {
+    console.log('Formulário inválido');
   }
+}
 
     logout() {
     localStorage.removeItem('token'); // ou sessionStorage.clear();
@@ -104,4 +113,3 @@ irParaDadosOrganizacao() {
 
 
 
- 
