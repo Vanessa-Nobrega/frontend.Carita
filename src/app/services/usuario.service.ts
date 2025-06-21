@@ -2,9 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
 import { jwtDecode } from "jwt-decode";
- 
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +11,16 @@ import { jwtDecode } from "jwt-decode";
 
 export class UsuarioService {
 
- 
+
   private baseUrl = 'http://localhost:3000';
- 
- 
+
+
 
   constructor(private http: HttpClient) { }
 
   getUsuario(): Observable<any> {
 
-   
+
   const token: any = localStorage.getItem("token");
   if (token) {
     const decoded: any = jwtDecode(token);
@@ -30,7 +29,7 @@ export class UsuarioService {
   }
     return this.http.get(`${this.baseUrl}/usuarios`);
 
-    
+
   }
 
   getUsuarioPorId(id: number): Observable<any> {
@@ -49,7 +48,11 @@ export class UsuarioService {
 
   loginUsuario(payload:any): Observable<any>{
   return this.http.post(`${this.baseUrl}/autenticacao`,payload)
-  
+
+}
+
+desativarUsuario(id: number): Observable<any> {
+  return this.http.post(`${this.baseUrl}/usuarios/${id}/desativar`, {});
 }
 
 reativarConta(id: number): Observable<any> {
