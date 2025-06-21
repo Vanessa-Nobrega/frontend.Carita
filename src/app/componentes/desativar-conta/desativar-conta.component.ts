@@ -55,6 +55,22 @@ export class DesativarContaComponent {
     }
   });
 }
+desativarConta() {
+  if (!this.userId) return;
+
+  this.usuarioService.desativarUsuario(this.userId).subscribe({
+    next: (res) => {
+      console.log('Conta desativada:', res);
+      localStorage.removeItem('token'); // limpa o token após desativar
+      this.router.navigate(['/pagina-login']); // redireciona
+    },
+    error: (err) => {
+      console.error('Erro ao desativar a conta:', err);
+      alert('Erro ao desativar a conta. Tente novamente.');
+    }
+  });
+}
+
   logout() {
     localStorage.removeItem('token'); // ou sessionStorage.clear();
     this.router.navigate(['/pagina-login']); // redireciona para a página de login
