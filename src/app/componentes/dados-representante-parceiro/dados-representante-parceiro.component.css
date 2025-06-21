@@ -1,9 +1,9 @@
 .main-content{
-  
+
   width: 100%;
   padding: 0px !important;
-  
-      
+
+
 }
 
 .form-content{
@@ -26,7 +26,7 @@ width: 30%;
 
 .sidebar-content {
   text-align: center;
-  
+
 }
 
 .img-usuario{
@@ -36,7 +36,7 @@ width: 30%;
 }
 .dados-instituição{
   margin-bottom: 30px !important;
-  
+
 }
 
   .btn-enviar{
@@ -51,6 +51,9 @@ width: 30%;
     font-size: 16px;
     margin-top: 20px;
     text-align: center;
+     position: relative;
+  z-index: 10;
+  pointer-events: auto;
   }
 
   .btn-enviar:hover {
@@ -66,5 +69,5 @@ width: 30%;
     margin-top: 20px;
     color: var(--cor-textoPrimaria);
 
-    
+
   }

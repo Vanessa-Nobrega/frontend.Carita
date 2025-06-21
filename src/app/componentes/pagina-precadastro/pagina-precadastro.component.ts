@@ -41,7 +41,7 @@ export class PaginaPrecadastroComponent implements OnInit {
       this.router.navigate(['/pagina-login']);
       return;
     }
-
+/*
     // Consulta no backend se já existe organização para o usuário
     this.organizacoesService.getOrganizacaoByUsuarioId(userId).subscribe({
       next: (org) => {
@@ -58,6 +58,6 @@ export class PaginaPrecadastroComponent implements OnInit {
         // Por segurança, direciona para cadastro
         this.router.navigate(['/pagina-login']);
       }
-    });
+    });*/
   }
 }

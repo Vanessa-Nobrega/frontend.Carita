@@ -29,8 +29,9 @@ export class DadosRepresentanteParceiroComponent implements OnInit {
               }
     this.RepresentanteParceirosForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],  // Usando array para validadores
-      CPF: ['', [Validators.required, Validators.minLength(11)]],  // Usando array para validadores
-      nome: ['', [Validators.required, Validators.minLength(3)]]  // Usando array para validadores
+      cpf: ['', [Validators.required, Validators.minLength(11)]],  // Usando array para validadores
+     /* nome: ['', [Validators.required, Validators.minLength(3)]]  // Usando array para validadores
+     */
     });
   }
 
@@ -41,8 +42,8 @@ export class DadosRepresentanteParceiroComponent implements OnInit {
           console.log('Usuário carregado:', usuario);
           this.RepresentanteParceirosForm.patchValue({
             email: usuario.email,
-            CPF: usuario.cpf,
-            
+            cpf: usuario.cpf,
+
           });
         },
         error: (err) => {
@@ -53,19 +54,27 @@ export class DadosRepresentanteParceiroComponent implements OnInit {
     }
   }
 
-
   onSubmit(): void {
-    if (this.RepresentanteParceirosForm.valid) {
-      console.log('Formulário válido:', this.RepresentanteParceirosForm.value);
-      this.showAlert = true;
-      setTimeout(() => (this.showAlert = false), 4000);
-      this.RepresentanteParceirosForm.reset();
-    } else {
-      console.log('Formulário inválido');
-    }
-  }
+  if (this.RepresentanteParceirosForm.valid) {
+    const dadosAtualizados = this.RepresentanteParceirosForm.value;
 
-  
+    this.usuarioService.updateUsuario(this.userId, dadosAtualizados).subscribe({
+      next: (res) => {
+        console.log('Usuário atualizado com sucesso:', res);
+        this.showAlert = true;
+        setTimeout(() => (this.showAlert = false), 4000);
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar usuário:', err);
+        this.errorMessage = 'Erro ao atualizar os dados.';
+      }
+    });
+  } else {
+    console.log('Formulário inválido');
+  }
+}
+
+
    logout() {
     localStorage.removeItem('token'); // ou sessionStorage.clear();
     this.router.navigate(['/pagina-login']); // redireciona para a página de login
