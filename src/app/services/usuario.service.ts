@@ -52,5 +52,9 @@ export class UsuarioService {
   
 }
 
+reativarConta(id: number): Observable<any> {
+  return this.http.post(`${this.baseUrl}/usuarios/${id}/reativar`, {});
+}
+
 
 }

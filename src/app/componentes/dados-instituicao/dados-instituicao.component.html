@@ -20,11 +20,12 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a
-              routerLink="/pagina-ong"
-              class="nav-link active"
-              aria-current="page"
-              >Dados Instituição</a
+              (click)="irParaDadosOrganizacao()"
+              class="nav-link"
+              style="cursor: pointer"
             >
+              Dados Instituição
+            </a>
           </li>
           <li class="nav-item">
             <a routerLink="/pagina-representante" class="nav-link"
@@ -67,8 +68,6 @@
               class="form-control"
               placeholder="Nome Completo"
               formControlName="nome"
-              
-
             />
 
             <!--Validação Nome-->
@@ -99,7 +98,6 @@
               class="form-control"
               placeholder="00.000.000/0000-00"
               formControlName="cnpj"
-              
             />
             <!--Validação CNPJ-->
             <div
@@ -127,8 +125,6 @@
               class="form-control"
               placeholder="(00) 00000-0000"
               formControlName="telefone"
-              
-
             />
 
             <!--Validação Telefone-->
@@ -161,8 +157,6 @@
               class="form-control"
               placeholder="exemplo@dominio.com"
               formControlName="email"
-              
-
             />
 
             <!--Validação Email-->
@@ -192,8 +186,6 @@
             id="chave-pix"
             class="form-control"
             formControlName="numeroPix"
-            
-
           />
 
           <div
@@ -218,8 +210,6 @@
               class="form-control"
               placeholder="https://www.exemplo.com"
               formControlName="site"
-              
-
             />
           </div>
         </div>
@@ -235,8 +225,6 @@
               class="form-control"
               placeholder="ex: ONG, Associação, Instituto"
               formControlName="tipoInstituicao"
-              
-
             />
 
             <!--Validação Tipo Instituição-->
@@ -260,8 +248,6 @@
               id="anoFundacao"
               class="form-control"
               formControlName="anoFundacao"
-              
-
             />
 
             <!--Validação Ano Fundação-->
@@ -293,8 +279,6 @@
               class="form-control"
               placeholder="ex: Saúde, Educação, Meio Ambiente"
               formControlName="areaAtuacao"
-              
-
             />
 
             <!--Validação Area de Atuação-->
@@ -320,8 +304,6 @@
               class="form-control"
               placeholder="Descreva a instituição (ex: Missão, Visão, Objetivos)"
               formControlName="descricaoInstituicao"
-              
-
             ></textarea>
 
             <!--Validação Descrição-->
@@ -356,8 +338,6 @@
               class="form-control"
               placeholder="Rua Exemplo, 123"
               formControlName="logradouro"
-              
-
             />
             <div
               *ngIf="
@@ -382,8 +362,6 @@
               id="numero"
               class="form-control"
               formControlName="numero"
-              
-            
             />
             <!--Validação Numero-->
             <div
@@ -415,8 +393,6 @@
               class="form-control"
               placeholder="Bairro Exemplo"
               formControlName="bairro"
-              
-              
             />
 
             <!--Validação Bairro-->
@@ -447,8 +423,6 @@
               class="form-control"
               placeholder="Cidade Exemplo"
               formControlName="cidade"
-              
-              
             />
             <!--Validação Cidade-->
             <div
@@ -478,7 +452,6 @@
               class="form-control"
               placeholder="ex: São Paulo"
               formControlName="estado"
-                           
             />
 
             <!--Validação Estado-->
@@ -511,8 +484,6 @@
               class="form-control"
               placeholder="00000-000"
               formControlName="cep"
-              
-            
             />
 
             <!--Validação Cep-->
@@ -536,53 +507,54 @@
         <!--Input Anexo-->
         <!--Input Anexo Logo-->
 
-<div class="form-group">
-  <label for="logo">Anexar Logo</label>
-  <input
-    type="file"
-    class="form-control"
-    id="logo"
-    formControlName="logo"
-    (change)="onFileChange($event, 'logo')"
-    
-  />
-</div>
+        <div class="form-group">
+          <label for="logo">Anexar Logo</label>
+          <input
+            type="file"
+            class="form-control"
+            id="logo"
+            formControlName="logo"
+            (change)="onFileChange($event, 'logo')"
+          />
+        </div>
 
         <!-- Anexar Documento -->
 
-<div class="form-group">
-  <label for="documento">Anexar Documento</label>
-  <input
-    type="file"
-    class="form-control"
-    id="documento"
-    formControlName="documento"
-    (change)="onFileChange($event, 'documento')"
-    
-  />
-</div>  
+        <div class="form-group">
+          <label for="documento">Anexar Documento</label>
+          <input
+            type="file"
+            class="form-control"
+            id="documento"
+            formControlName="documento"
+            (change)="onFileChange($event, 'documento')"
+          />
+        </div>
 
         <!-- Anexar QrCode -->
- <div class="form-group">
-  <label for="qrCode">Anexar QR Code</label>
-  <input
-    type="file"
-    class="form-control"
-    id="qrCode"
-    formControlName="qrCode"
-    (change)="onFileChange($event, 'qrCode')"
-    
-  />
-  </div>
+        <div class="form-group">
+          <label for="qrCode">Anexar QR Code</label>
+          <input
+            type="file"
+            class="form-control"
+            id="qrCode"
+            formControlName="qrCode"
+            (change)="onFileChange($event, 'qrCode')"
+          />
+        </div>
 
-<!--Botão Submit-->
-      
-<div class="text-end mb-3">
-  <!-- Botão -->
-   <button type="submit" class="btn btn-primary" [disabled]="formOrganizacao.invalid">
-    Enviar
-  </button>
-</div>
+        <!--Botão Submit-->
+
+        <div class="text-end mb-3">
+          <!-- Botão -->
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="formOrganizacao.invalid"
+          >
+            Enviar
+          </button>
+        </div>
       </form>
     </div>
   </div>

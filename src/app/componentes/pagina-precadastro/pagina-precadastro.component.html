@@ -1,19 +1,18 @@
 <div class="body">
-
   <div class="login-container">
     <div class="text-center">
       <h1 class="mb-4 text-white">Cadastro</h1>
 
       <button class="btn btn-lg">
-        <a routerLink="/pagina-parceiros" class="text-white text-decoration-none"
-          >Área de Parceiro</a
-        >
+        <a routerLink="/pagina-parceiros" class="text-white text-decoration-none">
+          Área de Parceiro
+        </a>
       </button>
       <br />
-      <button class="btn btn-lg">
-        <a routerLink="/pagina-ong" class="text-white text-decoration-none"
-          >Área de Organização/Ong</a
-        >
+
+      <!-- ✅ Botão com clique para verificar se já existe organização -->
+      <button class="btn btn-lg" (click)="irParaOrganizacao()">
+        <span class="text-white text-decoration-none">Área de Organização/Ong</span>
       </button>
     </div>
   </div>
