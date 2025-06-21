@@ -58,6 +58,8 @@ export class DadosInstituicaoComponent  {
     }
   }
 
+  
+
   onSubmit() {
     if (this.formOrganizacao.valid) {
       const formData = new FormData();
@@ -76,6 +78,33 @@ export class DadosInstituicaoComponent  {
       });
     }
   }
+
+irParaDadosOrganizacao() {
+  if (!this.userId) {
+    this.router.navigate(['/pagina-login']);
+    return;
+  }
+
+  this.organizacaoService.getOrganizacaoByUsuarioId(this.userId).subscribe({
+    next: (org) => {
+      if (org && Object.keys(org).length > 0) {
+        this.router.navigate(['/pagina-ongId']); // Página de visualização/edição
+      } else {
+        this.router.navigate(['/pagina-ong']); // Página de cadastro
+      }
+    },
+    error: (err) => {
+      console.error('Erro ao verificar organização:', err);
+
+      // Se for erro 404, significa que ainda não tem organização cadastrada
+      if (err.status === 404) {
+        this.router.navigate(['/pagina-ong']); // Vai para página de cadastro
+      } else {
+        this.router.navigate(['/pagina-login']); // Outros erros, vai para login
+      }
+    }
+  });
+}
 
     logout() {
     localStorage.removeItem('token'); // ou sessionStorage.clear();

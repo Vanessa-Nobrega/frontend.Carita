@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink, Router } from '@angular/router';
 import  {UsuarioService } from '../../services/usuario.service';
 import { jwtDecode } from 'jwt-decode';
+import { OrganizacoesService } from '../../services/organizacoes.service';
 
 @Component({
   selector: 'app-dados-representante',
@@ -18,7 +19,7 @@ export class DadosRepresentanteComponent implements OnInit {
   showAlert = false;
   userId: number = 0;
 
-  constructor(private fb: FormBuilder,private usuarioService : UsuarioService, private router: Router){
+  constructor(private fb: FormBuilder,private usuarioService : UsuarioService, private router: Router, private organizacaoService: OrganizacoesService,){
 
     const token: any = localStorage.getItem("token");
           console.log(token)
@@ -53,6 +54,33 @@ export class DadosRepresentanteComponent implements OnInit {
       });
     }
   }
+
+irParaDadosOrganizacao() {
+  if (!this.userId) {
+    this.router.navigate(['/pagina-login']);
+    return;
+  }
+
+  this.organizacaoService.getOrganizacaoByUsuarioId(this.userId).subscribe({
+    next: (org) => {
+      if (org && Object.keys(org).length > 0) {
+        this.router.navigate(['/pagina-ongId']); // Página de visualização/edição
+      } else {
+        this.router.navigate(['/pagina-ong']); // Página de cadastro
+      }
+    },
+    error: (err) => {
+      console.error('Erro ao verificar organização:', err);
+
+      // Se for erro 404, significa que ainda não tem organização cadastrada
+      if (err.status === 404) {
+        this.router.navigate(['/pagina-ong']); // Vai para página de cadastro
+      } else {
+        this.router.navigate(['/pagina-login']); // Outros erros, vai para login
+      }
+    }
+  });
+}
 
  
   
