@@ -11,7 +11,7 @@ import { DadosInstituicaoComponent } from './componentes/dados-instituicao/dados
 import { DadosParceirosComponent } from './componentes/dados-parceiros/dados-parceiros.component';
 import { DadosRepresentanteComponent } from './componentes/dados-representante/dados-representante.component';
 import { DesativarContaComponent } from './componentes/desativar-conta/desativar-conta.component';
-
+import { DadosParceirosIdComponent } from './componentes/dados-parceiros-id/dados-parceiros-id.component';
 import { DesativarParceiroComponent } from './componentes/desativar-parceiro/desativar-parceiro.component';
 import { DadosRepresentanteParceiroComponent } from './componentes/dados-representante-parceiro/dados-representante-parceiro.component';
 
@@ -32,6 +32,7 @@ export const routes: Routes = [
     {path: 'pagina-cadastro', component: PaginaCadastroComponent},
     {path: 'pagina-ong', component: DadosInstituicaoComponent},
     {path: 'pagina-parceiros', component: DadosParceirosComponent},
+    {path: 'pagina-parceirosId', component: DadosParceirosIdComponent},
     {path: 'pagina-representante', component: DadosRepresentanteComponent},
     {path: 'pagina-RepresentanteParceiros', component: DadosRepresentanteParceiroComponent},
     {path: 'pagina-ongId', component: DadosInstituicaoIdComponent},
