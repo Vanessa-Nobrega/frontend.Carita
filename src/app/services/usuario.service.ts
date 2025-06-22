@@ -18,22 +18,35 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  private getAuthHeaders() {
+    const token = localStorage.getItem("token");
+    return {
+      Authorization: `Bearer ${token}`
+    };
+  }
+
   getUsuario(): Observable<any> {
 
-
   const token: any = localStorage.getItem("token");
+
   if (token) {
     const decoded: any = jwtDecode(token);
     const userId = decoded.id || decoded.userId;
     console.log(userId);
   }
-    return this.http.get(`${this.baseUrl}/usuarios`);
+    return this.http.get(`${this.baseUrl}/usuarios`,{
+      headers: this.getAuthHeaders()
+    });
 
 
   }
 
   getUsuarioPorId(id: number): Observable<any> {
-  return this.http.get(`${this.baseUrl}/usuarios/${id}`);
+    const token = localStorage.getItem('token');
+
+  return this.http.get(`${this.baseUrl}/usuarios/${id}`,{
+      headers: this.getAuthHeaders()
+    });
 }
 
   postUsuario(payload: any): Observable<any> {
@@ -42,8 +55,10 @@ export class UsuarioService {
   }
 
   updateUsuario(id: number, payload: any): Observable<any> {
-  console.log('Atualizando usuário:', id, payload);
-  return this.http.put(`${this.baseUrl}/usuarios/${id}`, payload);
+  const token = localStorage.getItem('token');
+  return this.http.put(`${this.baseUrl}/usuarios/${id}`, payload, {
+      headers: this.getAuthHeaders()
+    });
 }
 
   loginUsuario(payload:any): Observable<any>{
@@ -52,7 +67,10 @@ export class UsuarioService {
 }
 
 desativarUsuario(id: number): Observable<any> {
-  return this.http.post(`${this.baseUrl}/usuarios/${id}/desativar`, {});
+  const token = localStorage.getItem('token');
+  return this.http.post(`${this.baseUrl}/usuarios/${id}/desativar`, {}, {
+      headers: this.getAuthHeaders()
+    });
 }
 
 reativarConta(id: number): Observable<any> {
