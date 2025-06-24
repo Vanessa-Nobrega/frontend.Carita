@@ -60,7 +60,7 @@ export class CamposCadastroComponent {
 
       }
     });
-      //this.router.navigate(['/pagina-login'])
+      this.router.navigate(['/pagina-login'])
 
 
     }
