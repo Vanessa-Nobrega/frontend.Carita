@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
-  private baseUrl = 'https://seu-backend.onrender.com/upload';
+  private baseUrl = 'https://backend-carita-1.onrender.com/upload';
 
   constructor(private http: HttpClient) {}
 
