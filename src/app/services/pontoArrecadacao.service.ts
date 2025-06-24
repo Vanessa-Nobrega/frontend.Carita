@@ -10,7 +10,7 @@ import { pontoArrecadacao } from '../models/pontosArrecadacao.model';
 
 export class pontoArrecadacaoService {
  
-  private baseUrl = 'https://seu-backend.onrender.com'; 
+  private baseUrl = 'https://backend-carita-1.onrender.com'; 
  
  
   constructor(private http: HttpClient) { }
