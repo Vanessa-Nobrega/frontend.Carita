@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   login(email: string, senha: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/login`, { email, senha });  }
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/autenticacao`, { email, senha });  }
 
   
   saveToken(token: string) {
