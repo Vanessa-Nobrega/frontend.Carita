@@ -1,4 +1,4 @@
-
+import { environment } from '../../../environments/environments.prod';  
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
@@ -10,24 +10,24 @@ import { pontoArrecadacao } from '../models/pontosArrecadacao.model';
 
 export class pontoArrecadacaoService {
  
-  private baseUrl = 'https://backend-carita-1.onrender.com'; 
+  // private baseUrl = 'https://backend-carita-1.onrender.com'; 
  
  
   constructor(private http: HttpClient) { }
  
 getPontos(): Observable<pontoArrecadacao[]> {
-  return this.http.get<{ pontosArrecadacao: pontoArrecadacao[] }>(`${this.baseUrl}/pontosArrecadacao`)
-    .pipe(
-      map(response => response.pontosArrecadacao)
-    );
+  return this.http.get<{ pontosArrecadacao: pontoArrecadacao[] }>(`${environment.apiUrl}/pontosArrecadacao`)
+      .pipe(
+        map(response => response.pontosArrecadacao)
+      );
 }
 
 createPonto(ponto: pontoArrecadacao): Observable<pontoArrecadacao> {
-  return this.http.post<pontoArrecadacao>(`${this.baseUrl}/pontosArrecadacao`, ponto);
+   return this.http.post<pontoArrecadacao>(`${environment.apiUrl}/pontosArrecadacao`, ponto);
 }
 
 updatePonto(id: number, ponto: pontoArrecadacao): Observable<pontoArrecadacao> {
-  return this.http.put<pontoArrecadacao>(`${this.baseUrl}/pontosArrecadacao/${id}`, ponto);
+  return this.http.put<pontoArrecadacao>(`${environment.apiUrl}/pontosArrecadacao/${id}`, ponto);
 }
 
 
