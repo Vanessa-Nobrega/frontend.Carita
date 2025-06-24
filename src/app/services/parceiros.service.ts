@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 export class ParceirosService {
  
-  private baseUrl = 'http://localhost:3000'; // URL do seu backend
+  private baseUrl = 'https://seu-backend.onrender.com'; // URL do seu backend
  
  
   constructor(private http: HttpClient) { }
