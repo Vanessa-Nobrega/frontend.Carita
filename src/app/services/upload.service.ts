@@ -1,10 +1,11 @@
+import { environment } from '../../../environments/environments.prod';  
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UploadService {
-  private baseUrl = 'https://backend-carita-1.onrender.com/upload';
+  // private baseUrl = 'https://backend-carita-1.onrender.com/upload';
 
   constructor(private http: HttpClient) {}
 
@@ -12,6 +13,6 @@ export class UploadService {
     const formData = new FormData();
     formData.append('file', file);
 
-    return this.http.post<{ url: string }>(this.baseUrl, formData);
+    return this.http.post<{ url: string }>(`${environment.apiUrl}/upload`, formData);  
   }
 }

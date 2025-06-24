@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environments.prod';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -11,13 +12,12 @@ interface LoginResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'https://backend-carita-1.onrender.com/autenticacao'; 
+  // private baseUrl = 'https://backend-carita-1.onrender.com/autenticacao'; 
 
   constructor(private http: HttpClient) {}
 
   login(email: string, senha: string): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.baseUrl, { email, senha });
-  }
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/login`, { email, senha });  }
 
   
   saveToken(token: string) {

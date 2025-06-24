@@ -1,4 +1,4 @@
-
+import { environment } from '../../../environments/environments.prod';  
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -12,7 +12,7 @@ import { jwtDecode } from "jwt-decode";
 export class UsuarioService {
 
 
-  private baseUrl = 'https://backend-carita-1.onrender.com';
+  // private baseUrl = 'https://backend-carita-1.onrender.com';
 
 
 
@@ -34,7 +34,7 @@ export class UsuarioService {
     const userId = decoded.id || decoded.userId;
     console.log(userId);
   }
-    return this.http.get(`${this.baseUrl}/usuarios`,{
+    return this.http.get<any>(`${environment.apiUrl}/usuarios`, {
       headers: this.getAuthHeaders()
     });
 
@@ -44,37 +44,37 @@ export class UsuarioService {
   getUsuarioPorId(id: number): Observable<any> {
     const token = localStorage.getItem('token');
 
-  return this.http.get(`${this.baseUrl}/usuarios/${id}`,{
+  return this.http.get<any>(`${environment.apiUrl}/usuarios/${id}`, {
       headers: this.getAuthHeaders()
     });
 }
 
   postUsuario(payload: any): Observable<any> {
     console.log("Payload enviado:", payload);
-    return this.http.post(`${this.baseUrl}/usuarios`, payload);
+    return this.http.post<any>(`${environment.apiUrl}/usuarios`, payload);
   }
 
   updateUsuario(id: number, payload: any): Observable<any> {
   const token = localStorage.getItem('token');
-  return this.http.put(`${this.baseUrl}/usuarios/${id}`, payload, {
+  return this.http.put<any>(`${environment.apiUrl}/usuarios/${id}`, payload, {
       headers: this.getAuthHeaders()
     });
 }
 
   loginUsuario(payload:any): Observable<any>{
-  return this.http.post(`${this.baseUrl}/autenticacao`,payload)
+  return this.http.post<any>(`${environment.apiUrl}/autenticacao`, payload);
 
 }
 
 desativarUsuario(id: number): Observable<any> {
   const token = localStorage.getItem('token');
-  return this.http.post(`${this.baseUrl}/usuarios/${id}/desativar`, {}, {
+  return this.http.post<any>(`${environment.apiUrl}/usuarios/${id}/desativar`, {}, {
       headers: this.getAuthHeaders()
     });
 }
 
 reativarConta(id: number): Observable<any> {
-  return this.http.post(`${this.baseUrl}/usuarios/${id}/reativar`, {});
+  return this.http.post<any>(`${environment.apiUrl}/usuarios/${id}/reativar`, {});
 }
 
 
