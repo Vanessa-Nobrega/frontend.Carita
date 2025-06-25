@@ -26,7 +26,7 @@ export class CamposCadastroComponent {
       senha:['',[Validators.required, Validators.minLength(6)]]
     })
   }
-  onSubmit(){
+  /*onSubmit(){
 
     this.errorMessage = '';
 
@@ -60,9 +60,45 @@ export class CamposCadastroComponent {
 
       }
     });
-      this.router.navigate(['/pagina-login'])
+     // this.router.navigate(['/pagina-login'])
 
 
     }
   }
+}*/
+
+onSubmit() {
+  this.errorMessage = '';
+
+  if (this.myForm.valid) {
+    const { email, senha, cpf: CPF } = this.myForm.value;
+
+    this.usuarioService.postUsuario({
+      email,
+      senha,
+      cpf: CPF,
+      status: true
+    }).subscribe({
+      next: (res) => {
+        // ✅ Limpa token antes de ir pro login
+        localStorage.removeItem('token');
+        this.router.navigate(['/pagina-login']);
+        console.log('Cadastro realizado com sucesso. Redirecionando para login...');
+      },
+      error: (err) => {
+        if (this.myForm.invalid) {
+          this.errorMessage = 'Preencha todos os campos corretamente.';
+          this.myForm.markAllAsTouched();
+          return;
+        }
+
+        if (err.status === 400 && err.error?.message) {
+          this.errorMessage = err.error.message;
+        } else {
+          this.errorMessage = 'E-mail já cadastrado.';
+        }
+      }
+    });
+  }
+}
 }
