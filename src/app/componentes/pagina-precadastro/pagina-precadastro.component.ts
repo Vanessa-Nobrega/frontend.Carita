@@ -46,9 +46,9 @@ export class PaginaPrecadastroComponent {
     next: (parceiro) => {
       // ✅ Verifica se org é nulo, undefined ou objeto vazio
       if (parceiro && Object.keys(parceiro).length > 0) {
-        this.router.navigate(['/pagina-parceiros']); // Visualização/Edição
+        this.router.navigate(['/pagina-ong']); // Visualização/Edição
       } else {
-        this.router.navigate(['/pagina-parceirosId']); // Cadastro
+        this.router.navigate(['/pagina-ongId']); // Cadastro
       }
     },
     error: (err) => {

@@ -25,15 +25,9 @@
       <!-- Título -->
       <h5 class="text-center fw-bold mb-4">Pontos de Doação</h5>
 
-      <!-- Campo de pesquisa -->
-      <div class="input-group mb-3">
-        <span class="input-group-text  ">
-          <i class="fas fa-search"></i>
-        </span>
-        <input type="text" class="form-control " placeholder="Pesquise" style="border: 1px solid #522916;">
-      </div>
 
- <div *ngFor="let ponto of pontosArrecadacao" tabindex="0" class="cards-enderecos p-3 mb-3">
+
+ <!--<div *ngFor="let ponto of pontosArrecadacao" tabindex="0" class="cards-enderecos p-3 mb-3">
   <div class="d-flex">
     <i class="fas fa-map-marker-alt fs-4 me-3"></i>
     <div>
@@ -45,26 +39,56 @@
       </span>
     </div>
   </div>
-</div>
+</div>-->
 
-
-
-     <!-- Paginação -->
-          <nav  aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-      </nav>
+  <div tabindex="0" class="cards-enderecos p-3 mb-3">
+      <div class="d-flex">
+        <i class="fas fa-map-marker-alt fs-4 me-3"></i>
+        <div>
+          <strong>Supermercado Solidário</strong><br />
+          <span class="text-muted">
+            <strong>Endereço:</strong>
+            Rua das Flores, 123 – Centro, São Paulo - SP, 01000-000
+          </span>
+        </div>
+      </div>
     </div>
 
+    <div tabindex="0" class="cards-enderecos p-3 mb-3">
+      <div class="d-flex">
+        <i class="fas fa-map-marker-alt fs-4 me-3"></i>
+        <div>
+          <strong>Associação Vida Nova</strong><br />
+          <span class="text-muted">
+            <strong>Endereço:</strong>
+            Avenida Esperança, 456 – Jardim Alegria, Belo Horizonte - MG,
+            30123-456
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div tabindex="0" class="cards-enderecos p-3 mb-3">
+      <div class="d-flex">
+        <i class="fas fa-map-marker-alt fs-4 me-3"></i>
+        <div>
+          <strong>Instituto Criança Feliz</strong><br />
+          <span class="text-muted">
+            <strong>Endereço:</strong>
+            Rua da Paz, 789 – Vila Harmonia, Curitiba - PR, 80010-789
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--Maps-->
   <div class="col-md-6">
     <app-mapa></app-mapa>
   </div>
 </div>
+
+
+
+
 
