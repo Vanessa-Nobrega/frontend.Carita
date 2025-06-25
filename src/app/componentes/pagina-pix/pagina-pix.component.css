@@ -21,3 +21,8 @@
     width: 150px;
     display: flex;
 }
+
+
+.card-img-top{
+    width: 80px;
+}
