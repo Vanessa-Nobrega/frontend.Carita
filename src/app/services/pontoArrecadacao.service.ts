@@ -15,17 +15,14 @@ export class pontoArrecadacaoService {
 
   constructor(private http: HttpClient) { }
 
-  getPontos(): Observable<pontoArrecadacao[]> {
-  return this.http.get<pontoArrecadacao[]>(`${environment.apiUrl}/pontosArrecadacao`);
-}
-  /*
+
 getPontos(): Observable<pontoArrecadacao[]> {
   return this.http.get<{ pontosArrecadacao: pontoArrecadacao[] }>(`${environment.apiUrl}/pontosArrecadacao`)
      .pipe(
         map(response => response.pontosArrecadacao)
       );
 }
-      */
+      
 
 createPonto(ponto: pontoArrecadacao): Observable<pontoArrecadacao> {
    return this.http.post<pontoArrecadacao>(`${environment.apiUrl}/pontosArrecadacao`, ponto);
