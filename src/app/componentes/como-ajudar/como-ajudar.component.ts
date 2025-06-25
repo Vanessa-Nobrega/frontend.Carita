@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ MapaComponent, CommonModule],
   templateUrl: './como-ajudar.component.html',
-styleUrl: './como-ajudar.component.css'
+styleUrls: ['./como-ajudar.component.css']
 })
 export class ComoAjudarComponent  implements OnInit {
   pontosArrecadacao: pontoArrecadacao[] = [];
@@ -18,6 +18,7 @@ export class ComoAjudarComponent  implements OnInit {
 
   ngOnInit(): void {
     this.service.getPontos().subscribe((dados) => {
+      console.log('🔍 Dados recebidos:', dados);
       this.pontosArrecadacao = dados;
     });
   }
