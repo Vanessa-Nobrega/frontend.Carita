@@ -39,7 +39,7 @@ export class CamposCadastroComponent {
       this.usuarioService.postUsuario({email, senha, cpf: CPF, status: true}).subscribe({
       next: (res) => {
         
-        this.router.navigate(['/pagina-preCadastro']); 
+        this.router.navigate(['/pagina-login']); 
         console.log('Login com sucesso, token salvo no localStorage.');
       },
       error: (err) => {
